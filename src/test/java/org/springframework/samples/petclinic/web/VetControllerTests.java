@@ -75,5 +75,16 @@ public class VetControllerTests {
             .andExpect(content().node(hasXPath("/vets/vetList[id=1]/id")));
     }
 
+    @Test
+    public void testShowVetList() throws Exception {
+        mockMvc.perform(get("/vets"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$[0].id").value(1))
+            .andExpect(jsonPath("$[0].firstName").value("James"))
+            .andExpect(jsonPath("$[0].lastName").value("Carter"))
+            .andExpect(jsonPath("$[1].id").value(2))
+            .andExpect(jsonPath("$[1].firstName").value("Helen"))
+            .andExpect(jsonPath("$[1].lastName").value("Leary"));
+    }
 }
-

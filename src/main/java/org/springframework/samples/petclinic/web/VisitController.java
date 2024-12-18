@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Juergen Hoeller
@@ -90,9 +91,10 @@ public class VisitController {
     }
 
     @RequestMapping(value = "/owners/*/pets/{petId}/visits", method = RequestMethod.GET)
-    public String showVisits(@PathVariable int petId, Map<String, Object> model) {
-        model.put("visits", this.clinicService.findPetById(petId).getVisits());
-        return "visitList";
+    public @ResponseBody Map<String, Object> showVisits(@PathVariable int petId) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("visits", this.clinicService.findPetById(petId).getVisits());
+        return response;
     }
 
 }
