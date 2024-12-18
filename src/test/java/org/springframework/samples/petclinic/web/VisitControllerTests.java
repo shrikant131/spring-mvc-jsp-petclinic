@@ -14,6 +14,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Test class for {@link VisitController}
  *
@@ -71,8 +74,6 @@ public class VisitControllerTests {
         mockMvc.perform(get("/owners/*/pets/{petId}/visits", TEST_PET_ID))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("visits"))
-            .andExpect(view().name("visitList"));
+            .andExpect(jsonPath("$.visits").isArray());
     }
-
-
 }
